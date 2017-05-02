@@ -31,11 +31,25 @@ if playlist_already_exists == False:
 songs = mc.get_all_songs()
 # Create a list for the reshuffled playlist
 reshuffled_songs = []
+used_index = []
 # Randomly select songs
-print('Selecting ', number_of_songs_in_album, ' songs to add')
+print('Selecting ', number_of_songs_in_album, ' unique songs to add')
 for i in range(0, number_of_songs_in_album):
-    index = random.randint(0, len(songs) - 1)
-    reshuffled_songs.insert(i, songs[index])
+    unused_index = False
+    index = -1
+    # Ensure no duplicate songs in the playlist
+    while (unused_index == False):
+        # Randomly select a number from the total length of songs
+        index = random.randint(0, len(songs) - 1)
+        try:
+            # Will error if the number has not already been used
+            used_index.index(index)
+        except ValueError:
+            # If it errors, add the value and continue
+            used_index.append(index)
+            # Break out of the loop
+            unused_index = True
+    reshuffled_songs.append(songs[index])
 # Get all current songs in the reshuffled playlist
 current_songs = mc.get_all_user_playlist_contents()
 # Delete all songs from current playlist
