@@ -8,9 +8,9 @@ number_of_songs_in_album = 100
 # Put the id in console in here after the first run
 reshuffled_playlist_id = '1b350d6e-d170-4863-982f-78a13ccf918b'
 # Gmail
-email = ''
+email = input('What is your gmail address? ... ')
 # Password
-password = ''
+password = input('What is your gmail password (not saved)? ... ')
 # Log in
 logged_in = mc.login(email, password, mc.FROM_MAC_ADDRESS)
 # Determine if playlist exists
