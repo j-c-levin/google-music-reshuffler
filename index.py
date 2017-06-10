@@ -13,6 +13,8 @@ email = input('What is your gmail address? ')
 password = input('What is your gmail password (not saved)? ')
 # Log in
 logged_in = mc.login(email, password, mc.FROM_MAC_ADDRESS)
+if logged_in is False:
+    raise Exception('could not log in', logged_in)
 # Determine if playlist exists
 playlists = mc.get_all_playlists()
 playlist_already_exists = False
