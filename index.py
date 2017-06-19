@@ -1,5 +1,7 @@
 from gmusicapi import Mobileclient
 import random
+import getpass
+import io
 # Make a variable of the import
 mc = Mobileclient()
 # Number of songs to have in reshuffled album
@@ -10,7 +12,7 @@ reshuffled_playlist_id = '1b350d6e-d170-4863-982f-78a13ccf918b'
 # Gmail
 email = input('What is your gmail address? ')
 # Password
-password = input('What is your gmail password (not saved)? ')
+password = getpass.getpass('What is your gmail password (not saved)?')
 # Log in
 logged_in = mc.login(email, password, mc.FROM_MAC_ADDRESS)
 if logged_in is False:
@@ -23,7 +25,7 @@ for playlist in playlists:
         print('Found re-shuffler, not recreating')
         playlist_already_exists = True
 # Create the reshuffler playlist if it does not exist
-if playlist_already_exists == False:
+if playlist_already_exists != True:
     print('Creating reshuffler album for first time')
     # Create the reshuffler playlist
     playlist_id = mc.create_playlist(
@@ -31,6 +33,12 @@ if playlist_already_exists == False:
     print('new id:', playlist_id)
 # Get all songs
 songs = mc.get_all_songs()
+# Just some code that prints out all my songs
+# file = io.open('testfile.txt','w', encoding='utf-8')
+# for i in range(0, len(songs)):
+#     file.write(songs[i].get('title'))
+#     file.write('\n')
+# file.close()
 # Create a list for the reshuffled playlist
 reshuffled_songs = []
 used_index = []
