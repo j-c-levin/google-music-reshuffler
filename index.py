@@ -4,8 +4,6 @@ import getpass
 import io
 # Make a variable of the import
 mc = Mobileclient()
-# Number of songs to have in reshuffled album
-number_of_songs_in_album = 100
 # Id of reshuffled playlist
 # Put the id in console in here after the first run
 reshuffled_playlist_id = '1b350d6e-d170-4863-982f-78a13ccf918b'
@@ -17,6 +15,17 @@ password = getpass.getpass('What is your gmail password (not saved)?')
 logged_in = mc.login(email, password, mc.FROM_MAC_ADDRESS)
 if logged_in is False:
     raise Exception('could not log in', logged_in)
+# Number of songs to have in reshuffled album
+number_of_songs_in_album = input('How many songs would you like in the album? ')
+# If an invalid integer is input, loop until a valid one is
+if number_of_songs_in_album.isdigit() == False:
+    invalid_input = True
+    while invalid_input == True:
+        number_of_songs_in_album = input('Please use only an integer, how many songs would you like in the album? ')
+        if number_of_songs_in_album.isdigit() == True:
+            invalid_input = False
+# Convert the song count to an integer
+number_of_songs_in_album = int(number_of_songs_in_album)
 # Determine if playlist exists
 playlists = mc.get_all_playlists()
 playlist_already_exists = False
@@ -33,12 +42,6 @@ if playlist_already_exists != True:
     print('new id:', playlist_id)
 # Get all songs
 songs = mc.get_all_songs()
-# Just some code that prints out all my songs
-# file = io.open('testfile.txt','w', encoding='utf-8')
-# for i in range(0, len(songs)):
-#     file.write(songs[i].get('title'))
-#     file.write('\n')
-# file.close()
 # Create a list for the reshuffled playlist
 reshuffled_songs = []
 used_index = []
